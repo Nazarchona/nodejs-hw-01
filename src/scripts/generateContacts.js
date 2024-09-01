@@ -1,7 +1,6 @@
 // src/scripts/generateContacts.js
 
 import fs from 'fs/promises';
-import path from 'path';
 import createFakeContact from '../utils/createFakeContact.js';
 import { PATH_DB } from '../constants/contacts.js';
 

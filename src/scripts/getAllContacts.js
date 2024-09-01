@@ -1,15 +1,15 @@
-import fs from 'fs/promises';
+import * as fs from 'node:fs/promises';
+import DetectFileEncodingAndLanguage from 'detect-file-encoding-and-language';
 import { PATH_DB } from '../constants/contacts.js';
 
-export const getAllContacts = async () => {
-  try {
-    const data = await fs.readFile(PATH_DB, 'utf8');
-    const contacts = JSON.parse(data);
-    return contacts;
-  } catch (error) {
-    console.error('Error getting all contacts:', error.message);
-    return [];
-  }
+
+const getAllContacts = async () => {
+  const { encoding } = await DetectFileEncodingAndLanguage(PATH_DB);
+  const data = await fs.readFile(PATH_DB, encoding);
+  return JSON.parse(data);
 };
+
+
+export default getAllContacts;
 
 
