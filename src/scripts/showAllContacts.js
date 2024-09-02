@@ -1,2 +1,9 @@
 import getAllContacts from './getAllContacts.js';
-console.log(await getAllContacts());
+
+const displayContacts = async () => {
+  const contacts = await getAllContacts();
+  console.log(contacts);
+};
+
+displayContacts();
+
