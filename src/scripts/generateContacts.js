@@ -1,27 +1,16 @@
-// src/scripts/generateContacts.js
-
-import fs from 'fs/promises';
 import createFakeContact from '../utils/createFakeContact.js';
-import { PATH_DB } from '../constants/contacts.js';
+import getAllContacts from './getAllContacts.js';
+import updateContacts from './upContacts.js';
 
-const generateContacts = async (count) => {
-  try {
-    const data = await fs.readFile(PATH_DB, 'utf8');
-    const contacts = JSON.parse(data);
 
-    for (let i = 0; i < count; i++) {
-      contacts.push(createFakeContact());
-    }
+const generateContacts = async (number) => {
+    const contacts = await getAllContacts();
+    const newContacts = Array(number).fill(0).map(createFakeContact);
+    contacts.push(...newContacts);
 
-    await fs.writeFile(PATH_DB, JSON.stringify(contacts, null, 2));
-    console.log(`Generated ${count} contacts.`);
-  } catch (error) {
-    console.error('Error generating contacts:', error.message);
-  }
+  await updateContacts(contacts);
 };
 
-// Example usage
-generateContacts(5); // Change the number as needed
-
+generateContacts(5);
 
 
